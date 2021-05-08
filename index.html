@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer Bank</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- #login-area -->
+    <div id="login-area">
+        <h2 class="bank-title text-center"> Welcome to Pioneer Bank !</h2>
+        <!-- .submit-area -->
+        <div class="submit-area">
+            <h4>Login</h4>
+            <input type="text" placeholder="Enter your email here" name="" id="" class="form-control">
+            <br>
+            <input type="password" placeholder="Type Password here" name="" id="" class="form-control">
+            <br>
+            <div class="text-end mx-4">
+                <button id="login" class="btn btn-outline-success">Enter</button>
+            </div>
+        </div>
+    </div>
+    <div id="transaction-area" class="container">
+        <!-- .row>.col-md-4*3>h5+h2 -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="diposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="currentDeposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$<span id="currentWithdraw">00</span></h2>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="currentBalance">1240</span></h2>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- .row>.col-md-6*2>h4+input+btn.btn.btn-success -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="dataInput">
+                    <h4>Deposit</h4>
+                    <input class="form-control" placeholder="..." type="text" name="" id="depositAmount">
+                    <br>
+                    <div class="text-end mx-4">
+                        <button id="addDipositBtn" class="btn btn-success">Deposit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="dataInput">
+                    <h4>Withdraw</h4>
+                    <input class="form-control" placeholder="$ Type Amount you want to withdraw" type="text" name=""
+                        id="withdrawAmount">
+                    <br>
+                    <div class="text-end mx-4">
+                        <button id="addWithdraw" class="btn btn-success">Withdraw</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        //login button event handler
+        const loginBtn = document.getElementById('login');
+        loginBtn.addEventListener('click', function (event) {
+            // console.log('amake click marse !');
+            const loginArea = document.getElementById('login-area');
+            loginArea.style.display = "none";
+
+            const transactionArea = document.getElementById('transaction-area');
+            transactionArea.style.display = "block";
+        })
+
+        //deposit button event handler
+        const depositBtn = document.getElementById('addDipositBtn');
+        depositBtn.addEventListener('click', function (event) {
+            // console.log('diposit clicked');
+            const depositAmount = document.getElementById('depositAmount').value;
+            const depositNumber = parseFloat(depositAmount);
+
+            // console.log(depositNumber);
+            /*
+                const currentDeposit = document.getElementById('currentDeposit').innerText;
+                const currentDepositNumber = parseFloat(currentDeposit);
+                const totalDeposit = depositNumber + currentDepositNumber;
+                document.getElementById('currentDeposit').innerText = totalDeposit;
+            */
+            updateSpanText('currentDeposit', depositNumber);
+            document.getElementById('depositAmount').value = "";
+            // console.log(total);
+            /////////////////////////////Deposit update done
+
+            /*
+            // Balance update ..
+            const currentBalance = document.getElementById('currentBalance').innerText;
+            const currentBalanceNumber = parseFloat(currentBalance);
+            const totalBalance = depositNumber + currentBalanceNumber;
+            document.getElementById('currentBalance').innerText = totalBalance;
+            */
+            // Balance update ..
+            updateSpanText('currentBalance', depositNumber);
+        })
+        //same kaj duibar repeat kora lagse !
+        //sheta jeno na kora lage .. ejonno amra function use korbo 
+        function updateSpanText(id, depositNumber) {
+            // Balance update ..
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const totalBalance = depositNumber + currentNumber;
+            document.getElementById(id).innerText = totalBalance;
+        }
+
+        //withdraw button event handler
+        const withdrawBtn = document.getElementById('addWithdraw');
+        withdrawBtn.addEventListener('click', function (event) {
+            // console.log('Withdraw Clicked');
+            const withdrawNumber = getInputNumber('withdrawAmount');
+            // console.log(withdrawNumber);
+            updateSpanText('currentWithdraw', withdrawNumber);
+            updateSpanText('currentBalance', -1 * withdrawNumber);
+            document.getElementById('withdrawAmount').value = "";
+        })
+        //function create kortesi kajer shubidhar jonno ... 
+        //dui bar e form theke data read kora lagtese .. ejonno function dorkar
+        //nam dicchi getInputNumber()
+        function getInputNumber(amount) {
+            const withdrawAmount = document.getElementById(amount).value;
+            // console.log(withdrawAmount);
+            const withdrawNumber = parseFloat(withdrawAmount);
+            return withdrawNumber;
+
+        }
+
+
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
